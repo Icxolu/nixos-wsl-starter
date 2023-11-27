@@ -8,14 +8,12 @@
   ...
 }: let
   unstable-packages = with pkgs.unstable; [
-    # FIXME: select your core binaries that you always want on the bleeding-edge
+    # select your core binaries that you always want on the bleeding-edge / newest version
     bat
-    bottom
     coreutils
     curl
     du-dust
     fd
-    findutils
     fx
     git
     git-crypt
@@ -23,31 +21,30 @@
     jq
     killall
     mosh
-    neovim
+    nano
     procs
     ripgrep
     sd
-    tmux
     tree
     unzip
-    vim
     wget
     zip
   ];
 
   stable-packages = with pkgs; [
-    # FIXME: customize these stable packages to your liking for the languages that you use
+    # customize these stable packages to your liking for the languages that you use
 
     # key tools
-    gnumake # for lunarvim
-    gcc # for lunarvim
-    gh # for bootstrapping
+    gnumake
+    gcc
     just
+    mold
+    (rust-bin.stable.latest.default.override {
+      # extensions = [ "rust-src" ];
+      targets = ["armv7-unknown-linux-gnueabihf" "x86_64-pc-windows-gnu"];
+    })
 
     # core languages
-    rustup
-    go
-    lua
     nodejs
     python
     typescript
@@ -56,16 +53,11 @@
     cargo-cache
     cargo-expand
 
-    # local dev stuf
-    mkcert
-    httpie
-
     # treesitter
     tree-sitter
 
     # language servers
     ccls # c / c++
-    gopls
     nodePackages.typescript-language-server
     pkgs.nodePackages.vscode-langservers-extracted # html, css, json, eslint
     nodePackages.yaml-language-server
@@ -78,8 +70,6 @@
     black # python
     ruff # python
     deadnix # nix
-    golangci-lint
-    lua52Packages.luacheck
     nodePackages.prettier
     shellcheck
     shfmt
@@ -99,7 +89,7 @@ in {
     homeDirectory = "/home/${username}";
 
     # FIXME: set your preferred $EDITOR
-    sessionVariables.EDITOR = "${pkgs.neovim}/bin/nvim";
+    sessionVariables.EDITOR = "code";
     # FIXME: set your preferred $SHELL
     sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/zsh";
   };
@@ -123,7 +113,6 @@ in {
     nix-index.enableZshIntegration = true;
     nix-index-database.comma.enable = true;
 
-    # FIXME: disable this if you don't want to use the starship prompt
     starship.enable = true;
     starship.settings = {
       aws.disabled = true;
@@ -162,8 +151,8 @@ in {
         side-by-side = true;
         navigate = true;
       };
-      userEmail = ""; # FIXME: set your git email
-      userName = ""; #FIXME: set your git username
+      userEmail = "10486322+Icxolu@users.noreply.github.com";
+      userName = "Icxolu";
       extraConfig = {
         # FIXME: uncomment the next lines if you want to be able to clone private https repos
         # url = {
@@ -219,28 +208,15 @@ in {
       ];
 
       shellAliases = {
-        "..." = "./..";
-        "...." = "././..";
+        cat = "bat";
         cd = "z";
         gc = "nix-collect-garbage --delete-old";
         refresh = "source ${config.home.homeDirectory}/.zshrc";
+        rebuild = "sudo nixos-rebuild switch --flake ~/configuration";
         show_path = "echo $PATH | tr ':' '\n'";
 
-        # FIXME: add more git aliases here if you want them
-        gapa = "git add --patch";
-        grpa = "git reset --patch";
-        gst = "git status";
-        gdh = "git diff HEAD";
-        gp = "git push";
-        gph = "git push -u origin HEAD";
-        gco = "git checkout";
-        gcob = "git checkout -b";
-        gcm = "git checkout master";
-        gcd = "git checkout develop";
-
-        pbcopy = "/mnt/c/Windows/System32/clip.exe";
-        pbpaste = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -command 'Get-Clipboard'";
         explorer = "/mnt/c/Windows/explorer.exe";
+        code = "/mnt/e/Programme/VSCode/bin/code";
       };
 
       envExtra = ''
