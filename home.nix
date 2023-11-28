@@ -46,7 +46,7 @@
 
     # core languages
     nodejs
-    python
+    python3
     typescript
 
     # rust stuff
@@ -131,6 +131,13 @@ in {
     # FIXME: disable whatever you don't want
     fzf.enable = true;
     fzf.enableZshIntegration = true;
+    # FIXME: we can try to switch to eza on 23.11?
+    # eza = {
+    #   enable = true;
+    #   enableAliases = true;
+    #   git = true;
+    #   icons = true;
+    # };
     lsd.enable = true;
     lsd.enableAliases = true;
     zoxide.enable = true;
