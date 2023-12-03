@@ -131,15 +131,12 @@ in {
     # FIXME: disable whatever you don't want
     fzf.enable = true;
     fzf.enableZshIntegration = true;
-    # FIXME: we can try to switch to eza on 23.11?
-    # eza = {
-    #   enable = true;
-    #   enableAliases = true;
-    #   git = true;
-    #   icons = true;
-    # };
-    lsd.enable = true;
-    lsd.enableAliases = true;
+    eza = {
+      enable = true;
+      enableAliases = true;
+      git = true;
+      icons = true;
+    };
     zoxide.enable = true;
     zoxide.enableZshIntegration = true;
     broot.enable = true;
