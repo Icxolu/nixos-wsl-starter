@@ -2,16 +2,15 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
-    rust-overlay.inputs.flake-utils.follows = "flake-utils";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
@@ -22,6 +21,8 @@
 
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    flox.url = "github:flox/flox";
   };
 
   outputs = inputs:
@@ -57,7 +58,7 @@
       };
 
       argDefaults = {
-        inherit secrets inputs self nix-index-database;
+        inherit secrets inputs self nix-index-database flox;
         channels = {
           inherit nixpkgs nixpkgs-unstable;
         };

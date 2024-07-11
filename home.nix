@@ -5,6 +5,7 @@
   pkgs,
   username,
   nix-index-database,
+  flox,
   ...
 }: let
   unstable-packages = with pkgs.unstable; [
@@ -33,6 +34,7 @@
 
   stable-packages = with pkgs; [
     # customize these stable packages to your liking for the languages that you use
+    podman-compose
 
     # key tools
     gnumake
@@ -102,6 +104,7 @@ in {
     [
       # pkgs.some-package
       # pkgs.unstable.some-other-package
+      flox.packages.x86_64-linux.flox
     ];
 
   # FIXME: if you want to version your LunarVim config, add it to the root of this repo and uncomment the next line
@@ -133,7 +136,6 @@ in {
     fzf.enableZshIntegration = true;
     eza = {
       enable = true;
-      enableAliases = true;
       git = true;
       icons = true;
     };
@@ -184,7 +186,7 @@ in {
     zsh = {
       enable = true;
       autocd = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       defaultKeymap = "emacs";
       history.size = 10000;
